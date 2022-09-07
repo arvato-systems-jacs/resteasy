@@ -9,9 +9,9 @@
     <version>6.1.1.Final-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
-  <artifactId>RESTEASY-1630-jetty-resteasy-servlet-initializer</artifactId>
+  <artifactId>resteasy-1630-jetty-resteasy-servlet-initializer</artifactId>
   <packaging>jar</packaging>
-  <name>RESTEASY-1630-jetty-resteasy-servlet-initializer</name>
+  <name>resteasy-1630-jetty-resteasy-servlet-initializer</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
