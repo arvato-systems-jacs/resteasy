@@ -1,0 +1,38 @@
+name: Publish Release
+
+on:
+  release:
+    types: [published]
+
+env:
+  DEPLOYREPO: 'github::default::https://maven.pkg.github.com/${{ github.repository }}'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Set versions to release name
+      run: mvn versions:set -DnewVersion=${{ github.event.release.name }} -DprocessAllModules=true
+
+    - name: Build new version
+      run: mvn -T 2C -B -DskipTests clean install
+
+    - name: Publish to GitHub Packages Apache Maven
+      run:  mvn -T 2C -B -DskipTests -DaltDeploymentRepository=${{ env.DEPLOYREPO }} deploy
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+
